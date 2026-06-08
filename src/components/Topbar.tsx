@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 interface TopbarProps {
   onClear: () => void;
   onExport: () => void;
@@ -16,6 +18,7 @@ export default function Topbar({ onClear, onExport }: TopbarProps) {
         </div>
       </div>
       <div className="topbar-right">
+        <Link href="/history" className="btn btn-ghost">🕐 History</Link>
         <button className="btn btn-ghost" onClick={onClear}>🗑 ล้างข้อมูล</button>
         <button className="btn btn-primary" onClick={onExport}>⬇ Export PDF</button>
       </div>

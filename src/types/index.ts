@@ -43,3 +43,23 @@ export interface InspectionInfo {
   inspector: string;
   witness: string;
 }
+// เพิ่มต่อท้าย src/types/index.ts
+
+export interface InspectionRecord {
+  id: string;
+  robot: RobotType;
+  savedAt: string;           // ISO date string
+  info: {
+    date: string;
+    robotNo: string;
+    inspector: string;
+    witness: string;
+  };
+  items: InspectionState;    // เดิมใช้ key เดียวกับ InspectionState
+  stats: {
+    done: number;
+    bad: number;
+    na: number;
+    total: number;
+  };
+}

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import type { RobotType, InspectionState, InspectionInfo, ItemState, ResultType, ActionType } from '@/types';
+import type { RobotType, InspectionState, InspectionInfo, ItemState, ResultType, ActionType, InspectionRecord } from '@/types';
 import { getSections, makeItemKey } from '@/data';
 
 const DEFAULT_ITEM_STATE: ItemState = {
@@ -75,10 +75,49 @@ export function useInspection() {
   }, []);
 
   const saveLocal = useCallback(() => {
-    if (typeof window === 'undefined') return;
-    const data = { robot, state, info };
-    localStorage.setItem('inspection_data', JSON.stringify(data));
-  }, [robot, state, info]);
+   if (typeof window === 'undefined') return;
+
+   // บันทึก session ปัจจุบัน (เหมือนเดิม)
+   const data = { robot, state, info };
+   localStorage.setItem('inspection_data', JSON.stringify(data));
+
+   // คำนวณ stats สำหรับ history
+   const secs = getSections(robot);
+   let hDone = 0, hBad = 0, hNa = 0, hTotal = 0;
+   secs.forEach(sec =>
+    sec.sub.forEach(sub =>
+      sub.items.forEach(item => {
+        hTotal++;
+        const key = makeItemKey(robot, sec.id, sub.id, item.id);
+        const s = state[key];
+        if (s?.result === 'good') hDone++;
+        else if (s?.result === 'bad') hBad++;
+        else if (s?.result === 'na') hNa++;
+      })
+    )
+  );
+
+  // สร้าง record แล้ว push เข้า history
+  const record: InspectionRecord = {
+    id: Date.now().toString(),
+    robot,
+    savedAt: new Date().toISOString(),
+    info: {
+      date: info.date,
+      robotNo: info.robot,
+      inspector: info.inspector,
+      witness: info.witness,
+    },
+    items: state,
+    stats: { done: hDone, bad: hBad, na: hNa, total: hTotal },
+   };
+
+   const existing: InspectionRecord[] = JSON.parse(
+    localStorage.getItem('inspection_history') || '[]'
+   );
+   existing.unshift(record);
+   localStorage.setItem('inspection_history', JSON.stringify(existing));
+ }, [robot, state, info]);
 
   const loadLocal = useCallback(() => {
     if (typeof window === 'undefined') return;

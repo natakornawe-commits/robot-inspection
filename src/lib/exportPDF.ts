@@ -22,7 +22,7 @@ export function exportPDF(
             <td style="color:#94a3b8;font-size:11px;text-align:center">${sec.num}.${idx + 1}</td>
             <td style="color:#64748b;font-size:11px">${sec.title} — ${sub.title.split('—')[0].trim()}</td>
             <td>${item.label}${item.ref ? `<br><span style="font-size:10px;color:#f59e0b">${item.ref}</span>` : ''}</td>
-            <td style="text-align:center;font-family:monospace">${s.value || '-'}</td>
+            <td style="text-align:center;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace">${s.value || '-'}</td>
             <td style="text-align:center;color:${resultColor};font-weight:700;font-size:14px">${resultLabel}</td>
             <td style="text-align:center;color:#94a3b8">${s.action || '-'}</td>
             <td>${s.photos && s.photos.length > 0
@@ -37,7 +37,7 @@ export function exportPDF(
 <html><head><meta charset="UTF-8">
 <title>Inspection Report</title>
 <style>
-  body { font-family: 'Segoe UI', sans-serif; background:#fff; color:#1e293b; margin:0; padding:20px; font-size:12px; }
+  body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; background:#fff; color:#1e293b; margin:0; padding:20px; font-size:12px; }
   .header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px; padding-bottom:16px; border-bottom:2px solid #3b82f6; }
   .company { font-size:18px; font-weight:700; color:#1e293b; }
   .report-title { font-size:13px; color:#64748b; margin-top:4px; }
