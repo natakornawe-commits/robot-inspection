@@ -11,7 +11,7 @@ export default function Topbar({ onClear, onExport }: TopbarProps) {
   return (
     <div className="topbar">
       <div className="topbar-left">
-        <div className="logo-badge">AI</div>
+        <div className="logo-badge">AC</div>
         <div>
           <div className="logo-text">ACETEC Inspection System</div>
           <div className="logo-sub">Robot Maintenance Checklist</div>

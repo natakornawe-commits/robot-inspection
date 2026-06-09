@@ -1,5 +1,8 @@
+
+
 import type { Metadata } from 'next';
 import HistoryPage from './HistoryPage';
+
 
 export const metadata: Metadata = {
   title: 'Inspection History — ACETEC',
