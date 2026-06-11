@@ -3,6 +3,7 @@
 import { useState, useCallback } from 'react';
 import type { RobotType, InspectionState, InspectionInfo, ItemState, ResultType, ActionType, InspectionRecord } from '@/types';
 import { getSections, makeItemKey } from '@/data';
+import { supabase } from '@/lib/supabase';
 
 const DEFAULT_ITEM_STATE: ItemState = {
   result: null,
@@ -74,12 +75,8 @@ export function useInspection() {
     setInfo({ date: getTodayDate(), robot: '', inspector: '', witness: '' });
   }, []);
 
-  const saveLocal = useCallback(() => {
+  const saveLocal = useCallback(async () => {
    if (typeof window === 'undefined') return;
-
-   // บันทึก session ปัจจุบัน (เหมือนเดิม)
-   const data = { robot, state, info };
-   localStorage.setItem('inspection_data', JSON.stringify(data));
 
    // คำนวณ stats สำหรับ history
    const secs = getSections(robot);
@@ -97,11 +94,12 @@ export function useInspection() {
     )
   );
 
-  // สร้าง record แล้ว push เข้า history
-  const record: InspectionRecord = {
+  
+  // สร้าง record
+  const record = {
     id: Date.now().toString(),
     robot,
-    savedAt: new Date().toISOString(),
+    saved_at: new Date().toISOString(),
     info: {
       date: info.date,
       robotNo: info.robot,
@@ -110,14 +108,20 @@ export function useInspection() {
     },
     items: state,
     stats: { done: hDone, bad: hBad, na: hNa, total: hTotal },
-   };
+  };
 
-   const existing: InspectionRecord[] = JSON.parse(
-    localStorage.getItem('inspection_history') || '[]'
-   );
-   existing.unshift(record);
-   localStorage.setItem('inspection_history', JSON.stringify(existing));
- }, [robot, state, info]);
+  // บันทึกลง Supabase
+  const { error } = await supabase
+    .from('inspection_records')
+    .insert(record);
+
+   if (error) {
+    console.error('Save error:', error);
+    return false;
+    }
+
+    return true;
+  }, [robot, state, info]);
 
   const loadLocal = useCallback(() => {
     if (typeof window === 'undefined') return;

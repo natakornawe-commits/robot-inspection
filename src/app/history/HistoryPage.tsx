@@ -1,11 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState  } from 'react';
 import Link from 'next/link';
 import { useHistory } from '@/hooks/useHistory';
 import RecordCard from '@/components/RecordCard';
 import { exportPDF } from '@/lib/exportPDF';
 import type { InspectionRecord } from '@/types';
+import { supabase } from '@/lib/supabase'; 
+
 
 export default function HistoryPage() {
   const {

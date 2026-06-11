@@ -49,9 +49,13 @@ export default function InspectionPage() {
     }
   }, [clearAll]);
 
-  const handleSave = useCallback(() => {
-    saveLocal();
-    showToast('บันทึกข้อมูลแล้ว ✓');
+  const handleSave = useCallback(async () => {
+    const ok = await saveLocal();
+    if (ok) {
+      showToast('บันทึกข้อมูลแล้ว');
+    } else {
+      showToast('บันทึกไม่สำเร็จ กรุณาลองใหม่');
+    }
   }, [saveLocal]);
 
   const handleExport = useCallback(() => {
