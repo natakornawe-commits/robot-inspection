@@ -11,7 +11,7 @@ import { supabase } from '@/lib/supabase';
 
 export default function HistoryPage() {
   const {
-    filtered, summaryStats,
+    filtered, summaryStats,loading,
     search, setSearch,
     filterRobot, setFilterRobot,
     filterResult, setFilterResult,
@@ -110,18 +110,23 @@ export default function HistoryPage() {
 
         {/* RECORD LIST */}
         <div className="record-list fade-in">
-          {filtered.length === 0 ? (
+         {loading ? (
+          <div className="empty-state">
+           <div className="empty-icon">⏳</div>
+           <div className="empty-title">กำลังโหลดข้อมูล...</div>
+           </div>
+          ) : filtered.length === 0 ? (
             <div className="empty-state">
-              <div className="empty-icon">📋</div>
-              <div className="empty-title">
-                {summaryStats.total === 0 ? 'ยังไม่มีรายการ' : 'ไม่พบรายการที่ค้นหา'}
-              </div>
-              <div className="empty-sub">
-                {summaryStats.total === 0
-                  ? 'กลับไปกรอก Checklist แล้วกด "บันทึก" เพื่อเพิ่มรายการ'
-                  : 'ลองเปลี่ยนคำค้นหาหรือตัวกรอง'}
-              </div>
+            <div className="empty-icon">📋</div>
+             <div className="empty-title">
+           {summaryStats.total === 0 ? 'ยังไม่มีรายการ' : 'ไม่พบรายการที่ค้นหา'}
+             </div>
+             <div className="empty-sub">
+             {summaryStats.total === 0
+             ? 'กลับไปกรอก Checklist แล้วกด "บันทึก" เพื่อเพิ่มรายการ'
+              : 'ลองเปลี่ยนคำค้นหาหรือตัวกรอง'}
             </div>
+           </div>
           ) : (
             filtered.map(record => (
               <RecordCard
