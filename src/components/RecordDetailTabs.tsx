@@ -1,7 +1,19 @@
 'use client';
 
 import type { InspectionRecord } from '@/types';
-import { getSections, makeItemKey } from '@/data';
+import { HAIPICK_SECTIONS } from '@/data/haipick';
+import { A71_SECTIONS } from '@/data/a71';
+import type { RobotType } from '@/types';
+import { makeItemKey, getSectionsStatic } from '@/lib/utils';
+// แล้วเปลี่ยน getSections(robot) → getSectionsStatic(robot)
+import React from 'react';
+
+
+
+function getSections(robot: RobotType) {
+  return robot === 'haipick' ? HAIPICK_SECTIONS : A71_SECTIONS;
+}
+
 
 interface Props {
   record: InspectionRecord;
@@ -98,8 +110,8 @@ function ItemsTab({ record }: { record: InspectionRecord }) {
         </thead>
         <tbody>
           {sections.map(sec => (
-            <>
-              <tr key={`head-${sec.id}`}>
+            <React.Fragment key={sec.id}>
+              <tr >
                 <td colSpan={5} style={{ padding: 0 }}>
                   <div className="section-group-head">
                     {sec.icon} {sec.num}. {sec.title} — {sec.subtitle}
@@ -136,7 +148,7 @@ function ItemsTab({ record }: { record: InspectionRecord }) {
                   );
                 })
               )}
-            </>
+            </React.Fragment>
           ))}
         </tbody>
       </table>

@@ -1,5 +1,6 @@
 import type { RobotType, InspectionState, InspectionInfo } from '@/types';
-import { getSections, makeItemKey } from '@/data';
+import { makeItemKey,getSectionsStatic} from '@/lib/utils';
+
 
 export function exportPDF(
   robot: RobotType,
@@ -7,7 +8,7 @@ export function exportPDF(
   info: InspectionInfo,
   stats: { done: number; bad: number; na: number; total: number }
 ) {
-  const sections = getSections(robot);
+  const sections = getSectionsStatic(robot);
 
   let rows = '';
   sections.forEach(sec => {
@@ -111,9 +112,15 @@ export function exportPDF(
   </div>
 </body></html>`;
 
-  const win = window.open('', '_blank');
-  if (!win) return;
-  win.document.write(html);
-  win.document.close();
-  win.onload = () => win.print();
+const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+const url = URL.createObjectURL(blob);
+const win = window.open(url, '_blank');
+  if (!win) {
+    alert('กรุณาอนุญาต Popup ในบราวเซอร์ก่อนครับ');
+    return;
+  }
+  win.onload = () => {
+    win.print();
+    URL.revokeObjectURL(url);
+  };
 }

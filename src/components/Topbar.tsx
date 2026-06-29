@@ -19,6 +19,7 @@ export default function Topbar({ onClear, onExport }: TopbarProps) {
       </div>
       <div className="topbar-right">
         <Link href="/history" className="btn btn-ghost">🕐 History</Link>
+        <Link href="/admin" className="btn btn-ghost">⚙️ Admin</Link>
         <button className="btn btn-ghost" onClick={onClear}>🗑 ล้างข้อมูล</button>
         <button className="btn btn-primary" onClick={onExport}>⬇ Export PDF</button>
       </div>

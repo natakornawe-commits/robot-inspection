@@ -1,7 +1,9 @@
 'use client';
 
 import type { RobotType, Section, InspectionState } from '@/types';
-import { makeItemKey } from '@/data';
+// ลบ define makeItemKey ออก แล้วเปลี่ยนเป็น
+import { makeItemKey } from '@/lib/utils';
+
 
 interface SidebarProps {
   robot: RobotType;
@@ -11,6 +13,8 @@ interface SidebarProps {
   onSwitchRobot: (r: RobotType) => void;
   onNavClick: (sectionId: string) => void;
 }
+
+
 
 export default function Sidebar({
   robot, sections, state, progress, onSwitchRobot, onNavClick

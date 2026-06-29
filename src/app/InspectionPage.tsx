@@ -2,9 +2,9 @@
 
 import { useState, useCallback } from 'react';
 import { useInspection } from '@/hooks/useInspection';
-import { getSections } from '@/data';
 import { exportPDF } from '@/lib/exportPDF';
 import type { RobotType, ResultType, ActionType } from '@/types';
+
 
 import Topbar from '@/components/Topbar';
 import Sidebar from '@/components/Sidebar';
@@ -18,15 +18,14 @@ export default function InspectionPage() {
   const {
     robot, setRobot,
     state, info, setInfo,
+    sections, checklistLoading,        // ← เพิ่ม 2 ตัวนี้
     getItemState, setResult, setValue, setAction,
     addPhotos, deletePhoto,
     clearAll, saveLocal,
     stats,
-  } = useInspection();
+} = useInspection();
 
   const [photoModal, setPhotoModal] = useState<{ key: string; label: string } | null>(null);
-
-  const sections = getSections(robot);
 
   const handleSwitchRobot = useCallback((r: RobotType) => setRobot(r), [setRobot]);
 
@@ -84,7 +83,12 @@ export default function InspectionPage() {
           <Legend />
 
           <div id="checklist-container" className="fade-in">
-            {sections.map(sec => (
+            {checklistLoading ? (
+             <div style={{ textAlign: 'center', padding: '40px', color: 'var(--text3)' }}>
+            ⏳ กำลังโหลด Checklist...
+            </div>
+          ) : (
+            sections.map(sec => (
               <SectionCard
                 key={`${robot}-${sec.id}`}
                 section={sec}
@@ -96,7 +100,8 @@ export default function InspectionPage() {
                 onSetAction={setAction as (key: string, val: ActionType) => void}
                 onOpenPhoto={handleOpenPhoto}
               />
-            ))}
+            ))
+          )}
           </div>
         </div>
       </div>

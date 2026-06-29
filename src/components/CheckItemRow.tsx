@@ -2,6 +2,7 @@
 
 import type { CheckItem as CheckItemType, ItemState, ResultType, ActionType } from '@/types';
 
+
 interface CheckItemProps {
   item: CheckItemType;
   num: number;

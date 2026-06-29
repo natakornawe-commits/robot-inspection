@@ -1,9 +1,13 @@
 'use client';
 
-import { useState, useCallback } from 'react';
-import type { RobotType, InspectionState, InspectionInfo, ItemState, ResultType, ActionType, InspectionRecord } from '@/types';
-import { getSections, makeItemKey } from '@/data';
+import { useState, useCallback,useEffect   } from 'react';
+import type { RobotType, InspectionState, InspectionInfo, ItemState, ResultType, ActionType,} from '@/types';
+import { fetchChecklist } from '@/lib/checklistService';
+import type { Section } from '@/types';  
 import { supabase } from '@/lib/supabase';
+import { makeItemKey } from '@/lib/utils';
+// ลบ const makeItemKey = ... ที่ define เองออก
+
 
 const DEFAULT_ITEM_STATE: ItemState = {
   result: null,
@@ -16,7 +20,7 @@ const DEFAULT_ITEM_STATE: ItemState = {
 function getTodayDate(): string {
   return new Date().toISOString().split('T')[0];
 }
-
+    
 export function useInspection() {
   const [robot, setRobot] = useState<RobotType>('haipick');
   const [state, setState] = useState<InspectionState>({});
@@ -26,6 +30,16 @@ export function useInspection() {
     inspector: '',
     witness: '',
   });
+  const [sections, setSections] = useState<Section[]>([]);
+  const [checklistLoading, setChecklistLoading] = useState(true);
+
+    useEffect(() => {
+      setChecklistLoading(true);
+      fetchChecklist(robot).then(data => {
+        if (data.length > 0) setSections(data);
+        setChecklistLoading(false);
+      });
+    }, [robot]);
 
   const getItemState = useCallback((key: string): ItemState => {
     return state[key] ?? { ...DEFAULT_ITEM_STATE };
@@ -79,9 +93,9 @@ export function useInspection() {
    if (typeof window === 'undefined') return;
 
    // คำนวณ stats สำหรับ history
-   const secs = getSections(robot);
+  
    let hDone = 0, hBad = 0, hNa = 0, hTotal = 0;
-   secs.forEach(sec =>
+   sections.forEach(sec =>
     sec.sub.forEach(sub =>
       sub.items.forEach(item => {
         hTotal++;
@@ -115,13 +129,13 @@ export function useInspection() {
     .from('inspection_records')
     .insert(record);
 
-   if (error) {
+   if (error) {  
     console.error('Save error:', error);
     return false;
     }
 
     return true;
-  }, [robot, state, info]);
+  }, [robot, state, info, sections]);
 
   const loadLocal = useCallback(() => {
     if (typeof window === 'undefined') return;
@@ -136,7 +150,7 @@ export function useInspection() {
   }, []);
 
   // Computed stats
-  const sections = getSections(robot);
+
   let done = 0, bad = 0, na = 0, total = 0;
   sections.forEach(sec => {
     sec.sub.forEach(sub => {
@@ -156,6 +170,7 @@ export function useInspection() {
   return {
     robot, setRobot,
     state, info, setInfo,
+    sections, checklistLoading, 
     getItemState, setResult, setValue, setAction,
     addPhotos, deletePhoto,
     clearAll, saveLocal, loadLocal,

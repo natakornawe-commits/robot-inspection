@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 import type { Section, InspectionState, ResultType, ActionType, RobotType } from '@/types';
-import { makeItemKey } from '@/data';
 import CheckItemRow from './CheckItemRow';
+// ลบ define makeItemKey ออก แล้วเปลี่ยนเป็น
+import { makeItemKey } from '@/lib/utils';
+
 
 interface SectionCardProps {
   section: Section;
