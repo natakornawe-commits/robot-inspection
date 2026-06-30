@@ -93,9 +93,13 @@ export default function HistoryPage() {
             />
           </div>
           <select className="filter-select" value={filterRobot} onChange={e => setFilterRobot(e.target.value as any)}>
-            <option value="">🤖 ทุกประเภท</option>
+           <option value="">🤖 ทุกประเภท</option>
             <option value="haipick">HAIPICK</option>
             <option value="a71">A71</option>
+            <option value="a71_v2">A71 (v2)</option>
+            <option value="rack_charging">Rack & Charging</option>
+            <option value="server_cabinet">Server Cabinet</option>
+            <option value="station">Station</option>
           </select>
           <select className="filter-select" value={filterResult} onChange={e => setFilterResult(e.target.value as any)}>
             <option value="">📋 ทุกสถานะ</option>

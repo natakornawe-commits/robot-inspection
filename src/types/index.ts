@@ -1,6 +1,6 @@
 export type ResultType = 'good' | 'bad' | 'na' | null;
 export type ActionType = 'CL' | 'O' | 'G' | 'A' | 'W' | 'X' | 'R' | 'N/A'|'';
-export type RobotType = 'haipick' | 'a71';
+export type RobotType = 'haipick' | 'a71' | 'a71_v2' | 'rack_charging' | 'server_cabinet' | 'station' ;
 
 export interface CheckItem {
   id: string;

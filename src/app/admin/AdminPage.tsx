@@ -5,13 +5,14 @@ import Link from 'next/link';
 import { fetchChecklist, saveChecklist } from '@/lib/checklistService';
 import type { RobotType, Section, SubSection, CheckItem } from '@/types';
 
+
 export default function AdminPage() {
   const [robot, setRobot] = useState<RobotType>('haipick');
   const [sections, setSections] = useState<Section[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [toast, setToast] = useState('');
-
+  
   // โหลด checklist
   useEffect(() => {
     const load = async () => {
@@ -183,7 +184,7 @@ export default function AdminPage() {
 
         {/* Robot Selector */}
         <div className="admin-robot-selector">
-          {(['haipick', 'a71'] as RobotType[]).map(r => (
+          {(['haipick', 'a71', 'a71_v2', 'rack_charging', 'server_cabinet', 'station'] as RobotType[]).map(r => (
             <button
               key={r}
               className={`robot-tab ${robot === r ? 'active' : ''}`}

@@ -116,7 +116,7 @@ const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
 const url = URL.createObjectURL(blob);
 const win = window.open(url, '_blank');
   if (!win) {
-    alert('กรุณาอนุญาต Popup ในบราวเซอร์ก่อนครับ');
+    alert('กรุณาอนุญาต Popup ในบราวเซอร์');
     return;
   }
   win.onload = () => {

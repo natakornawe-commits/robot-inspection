@@ -7,7 +7,9 @@ import { A71_SECTIONS } from '@/data/a71';
 import type { RobotType, Section } from '@/types';
 
 function getFallback(robot: RobotType): Section[] {
-  return robot === 'haipick' ? HAIPICK_SECTIONS : A71_SECTIONS;
+  if (robot === 'haipick') return HAIPICK_SECTIONS;
+  if (robot === 'a71') return A71_SECTIONS;
+  return []; // robot ใหม่ดึงจาก Supabase อย่างเดียว
 }
 
 export function useChecklist(robot: RobotType) {

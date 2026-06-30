@@ -25,15 +25,23 @@ export default function Sidebar({
       <div className="sidebar">
         <div className="sidebar-header">เลือกประเภทหุ่นยนต์</div>
 
-        <div className="robot-selector">
-          <button
-            className={`robot-tab ${robot === 'haipick' ? 'active' : ''}`}
-            onClick={() => onSwitchRobot('haipick')}
-          >HAIPICK</button>
-          <button
-            className={`robot-tab ${robot === 'a71' ? 'active' : ''}`}
-            onClick={() => onSwitchRobot('a71')}
-          >A71</button>
+        <div className="robot-selector" style={{ flexDirection: 'column', gap: 4 }}>
+          {([
+            { key: 'haipick',        label: 'HAIPICK' },
+            { key: 'a71',            label: 'A71' },
+            { key: 'a71_v2',         label: 'A71 (v2)' },
+            { key: 'rack_charging',  label: 'Rack & Charging' },
+            { key: 'server_cabinet', label: 'Server Cabinet' },
+            { key: 'station',        label: 'Station' },
+          ] as { key: RobotType; label: string }[]).map(r => (
+            <button
+              key={r.key}
+              className={`robot-tab ${robot === r.key ? 'active' : ''}`}
+              onClick={() => onSwitchRobot(r.key)}
+            >
+              {r.label}
+            </button>
+          ))}
         </div>
 
         <div className="progress-bar-wrap">
@@ -74,14 +82,22 @@ export default function Sidebar({
       {/* ── Mobile: Robot Switcher + Progress (แถบบนสุด ใต้ topbar) ── */}
       <div className="mobile-header">
         <div className="mobile-robot-selector">
-          <button
-            className={`robot-tab ${robot === 'haipick' ? 'active' : ''}`}
-            onClick={() => onSwitchRobot('haipick')}
-          >HAIPICK</button>
-          <button
-            className={`robot-tab ${robot === 'a71' ? 'active' : ''}`}
-            onClick={() => onSwitchRobot('a71')}
-          >A71</button>
+          {([
+            { key: 'haipick',        label: 'HAIPICK' },
+            { key: 'a71',            label: 'A71' },
+            { key: 'a71_v2',         label: 'A71 v2' },
+            { key: 'rack_charging',  label: 'Rack' },
+            { key: 'server_cabinet', label: 'Server' },
+            { key: 'station',        label: 'Station' },
+          ] as { key: RobotType; label: string }[]).map(r => (
+            <button
+              key={r.key}
+              className={`robot-tab ${robot === r.key ? 'active' : ''}`}
+              onClick={() => onSwitchRobot(r.key)}
+            >
+              {r.label}
+            </button>
+          ))}
         </div>
         <div className="mobile-progress">
           <div className="progress-track" style={{ flex: 1 }}>
