@@ -23,10 +23,26 @@ export default function HistoryPage() {
 
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
 
-  const handleExportPDF = (id: string) => {
+  const handleExportPDF = async (id: string) => {
     const record = filtered.find(r => r.id === id);
     if (!record) return;
-    exportPDF(record.robot, record.items, {
+
+    // ถ้า items ยังไม่ได้โหลด ให้โหลดก่อน
+    let items = itemsCache[id];
+    if (!items) {
+      const { data, error } = await supabase
+        .from('inspection_records')
+        .select('items')
+        .eq('id', id)
+        .single();
+      if (error || !data) {
+        alert('โหลดข้อมูลไม่สำเร็จ กรุณาลองใหม่');
+        return;
+      }
+      items = data.items;
+    }
+
+    exportPDF(record.robot, items ?? {}, {
       date: record.info.date,
       robot: record.info.robotNo,
       inspector: record.info.inspector,
