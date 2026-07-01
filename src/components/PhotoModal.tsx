@@ -106,7 +106,7 @@ export default function PhotoModal({
           <div
             className={`photo-add-tile ${uploading ? 'uploading' : ''}`}
             onClick={() => !uploading && fileRef.current?.click()}
-          >
+           >
             {uploading ? (
               <>
                 <span>⏳</span>

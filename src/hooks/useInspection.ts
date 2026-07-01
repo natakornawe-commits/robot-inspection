@@ -22,16 +22,30 @@ function getTodayDate(): string {
 }
     
 export function useInspection() {
-  const [robot, setRobot] = useState<RobotType>('haipick');
-  const [state, setState] = useState<InspectionState>({});
-  const [info, setInfo] = useState<InspectionInfo>({
-    date: getTodayDate(),
-    robot: '',
-    inspector: '',
-    witness: '',
-  });
+  
   const [sections, setSections] = useState<Section[]>([]);
   const [checklistLoading, setChecklistLoading] = useState(true);
+    // โหลด draft จาก localStorage ตอนเริ่ม
+  const [state, setState] = useState<InspectionState>(() => {
+    if (typeof window === 'undefined') return {};
+    try {
+      const raw = localStorage.getItem('inspection_draft_state');
+      return raw ? JSON.parse(raw) : {};
+    } catch { return {}; }
+  });
+
+  const [info, setInfo] = useState<InspectionInfo>(() => {
+    if (typeof window === 'undefined') return { date: getTodayDate(), robot: '', inspector: '', witness: '' };
+    try {
+      const raw = localStorage.getItem('inspection_draft_info');
+      return raw ? JSON.parse(raw) : { date: getTodayDate(), robot: '', inspector: '', witness: '' };
+    } catch { return { date: getTodayDate(), robot: '', inspector: '', witness: '' }; }
+  });
+
+  const [robot, setRobot] = useState<RobotType>(() => {
+    if (typeof window === 'undefined') return 'haipick';
+    return (localStorage.getItem('inspection_draft_robot') as RobotType) ?? 'haipick';
+  });
 
     useEffect(() => {
       setChecklistLoading(true);
@@ -39,6 +53,22 @@ export function useInspection() {
         if (data.length > 0) setSections(data);
         setChecklistLoading(false);
       });
+    }, [robot]);
+
+        // Auto-save draft ลง localStorage
+    useEffect(() => {
+      if (typeof window === 'undefined') return;
+      localStorage.setItem('inspection_draft_state', JSON.stringify(state));
+    }, [state]);
+
+    useEffect(() => {
+      if (typeof window === 'undefined') return;
+      localStorage.setItem('inspection_draft_info', JSON.stringify(info));
+    }, [info]);
+
+    useEffect(() => {
+      if (typeof window === 'undefined') return;
+      localStorage.setItem('inspection_draft_robot', robot);
     }, [robot]);
 
   const getItemState = useCallback((key: string): ItemState => {
@@ -87,6 +117,11 @@ export function useInspection() {
   const clearAll = useCallback(() => {
     setState({});
     setInfo({ date: getTodayDate(), robot: '', inspector: '', witness: '' });
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('inspection_draft_state');
+      localStorage.removeItem('inspection_draft_info');
+      localStorage.removeItem('inspection_draft_robot');
+  }
   }, []);
 
   const saveLocal = useCallback(async () => {
