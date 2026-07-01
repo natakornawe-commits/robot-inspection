@@ -11,11 +11,12 @@ interface RecordCardProps {
   onSetTab: (id: string, tab: string) => void;
   onDelete: (id: string) => void;
   onExportPDF: (id: string) => void;
+  loadingItems?: boolean;
 }
 
 export default function RecordCard({
   record, isExpanded, activeTab,
-  onToggle, onSetTab, onDelete, onExportPDF,
+  onToggle, onSetTab, onDelete, onExportPDF, loadingItems,
 }: RecordCardProps) {
   const { id, robot, info = {} as InspectionRecord['info'], stats, savedAt } = record;
 
@@ -86,11 +87,17 @@ export default function RecordCard({
 
       {/* EXPANDED DETAIL */}
       {isExpanded && (
+         loadingItems ? (
+          <div style={{ padding: 24, textAlign: 'center', color: 'var(--text3)' }}>
+            ⏳ กำลังโหลดรายละเอียด...
+          </div>
+        ) : (
         <RecordDetailTabs
           record={record}
           activeTab={activeTab}
           onSetTab={(tab) => onSetTab(id, tab)}
         />
+        )
       )}
     </div>
   );

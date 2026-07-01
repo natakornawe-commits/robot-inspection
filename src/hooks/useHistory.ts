@@ -29,6 +29,23 @@ export function useHistory() {
   const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<Record<string, string>>({});
+  const [itemsCache, setItemsCache] = useState<Record<string, any>>({});
+  const [loadingItems, setLoadingItems] = useState<string | null>(null);
+
+  const loadItems = useCallback(async (id: string) => {
+    if (itemsCache[id]) return; // มีแล้วไม่ต้องโหลดซ้ำ
+    setLoadingItems(id);
+    const { data, error } = await supabase
+      .from('inspection_records')
+      .select('items')
+      .eq('id', id)
+      .single();
+
+    if (!error && data) {
+      setItemsCache(prev => ({ ...prev, [id]: data.items }));
+    }
+    setLoadingItems(null);
+  }, [itemsCache]);
 
   // โหลดข้อมูลครั้งแรก
   useEffect(() => {
@@ -36,8 +53,8 @@ export function useHistory() {
       setLoading(true);
       const { data, error } = await supabase
         .from('inspection_records')
-        .select('*')
-        .order('saved_at', { ascending: false });
+         .select('id, robot, saved_at, info, stats')
+         .order('saved_at', { ascending: false });
 
       if (error) {
         console.error('Fetch error:', error);
@@ -87,9 +104,14 @@ export function useHistory() {
   }, []);
 
   const toggleExpand = useCallback((id: string) => {
-    setExpandedId(prev => prev === id ? null : id);
-    setActiveTab(prev => ({ ...prev, [id]: prev[id] ?? 'summary' }));
-  }, []);
+    setExpandedId(prev => {
+      const next = prev === id ? null : id;
+      if (next) loadItems(next);
+      return next;
+  });
+  setActiveTab(prev => ({ ...prev, [id]: prev[id] ?? 'summary' }));
+}, [loadItems]);
+   
 
   const setTab = useCallback((id: string, tab: string) => {
     setActiveTab(prev => ({ ...prev, [id]: tab }));
@@ -138,13 +160,14 @@ export function useHistory() {
   };
 
   return {
-    records, filtered, loading, summaryStats,
-    search, setSearch,
-    filterRobot, setFilterRobot,
-    filterResult, setFilterResult,
-    sortOrder, toggleSort,
-    expandedId, toggleExpand,
-    activeTab, setTab,
-    deleteRecord,
+  records, filtered, loading, summaryStats,
+  search, setSearch,
+  filterRobot, setFilterRobot,
+  filterResult, setFilterResult,
+  sortOrder, toggleSort,
+  expandedId, toggleExpand,
+  activeTab, setTab,
+  deleteRecord,
+  itemsCache, loadingItems,  // ← เพิ่ม
   };
-}  
+}

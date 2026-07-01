@@ -18,7 +18,7 @@ export default function HistoryPage() {
     sortOrder, toggleSort,
     expandedId, toggleExpand,
     activeTab, setTab,
-    deleteRecord,
+    deleteRecord,itemsCache, loadingItems,
   } = useHistory();
 
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
@@ -134,14 +134,15 @@ export default function HistoryPage() {
           ) : (
             filtered.map(record => (
               <RecordCard
-                key={record.id}
-                record={record}
-                isExpanded={expandedId === record.id}
-                activeTab={activeTab[record.id] ?? 'summary'}
-                onToggle={toggleExpand}
-                onSetTab={setTab}
-                onDelete={confirmDelete}
-                onExportPDF={handleExportPDF}
+               key={record.id}
+               record={{ ...record, items: itemsCache[record.id] ?? {} }}
+               isExpanded={expandedId === record.id}
+               activeTab={activeTab[record.id] ?? 'summary'}
+               onToggle={toggleExpand}
+               onSetTab={setTab}
+               onDelete={confirmDelete}
+               onExportPDF={handleExportPDF}
+               loadingItems={loadingItems === record.id}
               />
             ))
           )}
