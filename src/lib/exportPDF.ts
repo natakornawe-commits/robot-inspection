@@ -213,7 +213,7 @@ export function exportPDF(
 
   @media print {
     body { font-size: 10px; }
-    .item-photo { width: 80px; height: 80px; }
+    .item-photo { width: 300px; height: 300px; }
     .section-header { margin-top: 4px; }
   }
 </style>
