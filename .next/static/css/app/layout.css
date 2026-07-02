@@ -385,10 +385,38 @@ body {
 
   /* topbar */
   .topbar {
-    padding: 0 16px;
-    height: 52px;
+    padding: 0 12px;
+    height: auto;
+    min-height: 52px;
+    flex-wrap: nowrap;
+    gap: 8px;
   }
-  .logo-sub { display: none; }
+
+  .topbar-left {
+    flex-shrink: 0;
+    gap: 8px;
+  }
+
+  .logo-text-wrap { display: none; } /* ซ่อนชื่อระบบบนมือถือ */
+
+  .topbar-right {
+    display: flex;
+    gap: 4px;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+  }
+
+  .topbar-right .btn {
+    padding: 6px 8px;
+    font-size: 12px;
+    gap: 0;
+  }
+
+  /* แสดงแค่ icon ซ่อน text */
+  .btn-text { display: none; }
+  .btn-icon-only { display: inline; }
+}
+
 
   /* ซ่อน sidebar แล้วเปลี่ยนเป็น bottom nav แทน */
   .app-layout {
@@ -546,9 +574,11 @@ body {
   .admin-item .btn-icon {
     margin-left: auto;
   }
-
-   
+  @media (min-width: 769px) {
+  .btn-icon-only { display: none; }
+  .btn-text { display: inline; }
 }
+
 
 /* mobile เล็กมาก (iPhone SE) */
 @media (max-width: 390px) {
