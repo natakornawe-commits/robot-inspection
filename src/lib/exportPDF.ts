@@ -1,6 +1,9 @@
 import type { RobotType, InspectionState, InspectionInfo } from '@/types';
 import { getSectionsStatic } from '@/lib/utils';
 
+function stripEmoji(str: string): string {
+  return str.replace(/[\u{1F000}-\u{1FFFF}|\u{2600}-\u{26FF}|\u{2700}-\u{27BF}|\u{FE00}-\u{FE0F}|\u{1F900}-\u{1F9FF}|\u{1FA00}-\u{1FA6F}|\u{1FA70}-\u{1FAFF}|\u2600-\u26FF|\u2700-\u27BF]/gu, '').trim();
+}
 export function exportPDF(
   robot: RobotType,
   state: InspectionState,
@@ -18,9 +21,9 @@ export function exportPDF(
       <tr class="section-header-row">
         <td colspan="6">
           <div class="section-header">
-            <span class="section-icon">${sec.icon}</span>
-            <span>${sec.num}. ${sec.title}</span>
-            <span class="section-sub">— ${sec.subtitle}</span>
+           
+            <span>${sec.num}. ${stripEmoji(sec.title)}</span>
+            <span class="section-sub">— ${stripEmoji(sec.subtitle)}</span>
           </div>
         </td>
       </tr>`;
@@ -30,7 +33,7 @@ export function exportPDF(
       itemsHTML += `
         <tr class="subsection-row">
           <td colspan="6">
-            <div class="subsection-title">◆ ${sub.title}</div>
+            <div class="subsection-title">◆ ${stripEmoji(sub.title)}</div>
           </td>
         </tr>`;
 
@@ -56,14 +59,14 @@ export function exportPDF(
 
         // หมายเหตุ
         const notesHTML = s.notes
-          ? `<div class="item-notes">📝 ${s.notes}</div>`
+          ? `<div class="item-notes"> ${s.notes}</div>`
           : '';
 
         itemsHTML += `
           <tr class="item-row ${idx % 2 === 0 ? 'even' : ''}">
             <td class="item-num">${sec.num}.${idx + 1}</td>
             <td class="item-label">
-              <div>${item.label}</div>
+              <div>${stripEmoji(item.label)}</div>
               ${valueHTML}
               ${notesHTML}
               ${photosHTML}
