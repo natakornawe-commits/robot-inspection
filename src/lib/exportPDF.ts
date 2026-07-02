@@ -188,7 +188,7 @@ export function exportPDF(
     border-top: 1px dashed #e2e8f0;
   }
   .item-photo {
-    width: 160px; height: 160px; object-fit: cover;
+    width: 300px; height: 300px; object-fit: cover;
     border-radius: 4px; border: 1px solid #e2e8f0;
   }
 
