@@ -63,7 +63,7 @@ export default function HistoryPage() {
       {/* TOPBAR */}
       <div className="topbar">
         <div className="topbar-left">
-          <div className="logo-badge">AI</div>
+          <div className="logo-badge">AT</div>
           <div>
             <div className="logo-text">ACETEC Inspection System</div>
             <div className="logo-sub">ประวัติการตรวจสอบ</div>
@@ -73,7 +73,7 @@ export default function HistoryPage() {
           <Link href="/" className="btn btn-ghost">← กลับ Checklist</Link>
         </div>
       </div>
-
+    <div style={{ height: 'calc(100vh - 56px)', overflowY: 'auto'}}>
       <div className="page">
 
         {/* SUMMARY STATS */}
@@ -127,6 +127,7 @@ export default function HistoryPage() {
             {sortOrder === 'desc' ? ' ใหม่สุด' : ' เก่าสุด'}
           </button>
         </div>
+      
 
         {/* RECORD LIST */}
         <div className="record-list fade-in">
@@ -164,6 +165,7 @@ export default function HistoryPage() {
           )}
         </div>
       </div>
+    </div>
 
       {/* DELETE CONFIRM DIALOG */}
       {deleteTarget && (
