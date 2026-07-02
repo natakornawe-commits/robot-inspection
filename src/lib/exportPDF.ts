@@ -186,6 +186,8 @@ export function exportPDF(
     display: flex; flex-wrap: wrap; gap: 6px;
     margin-top: 6px; padding-top: 6px;
     border-top: 1px dashed #e2e8f0;
+    justify-content: center;
+
   }
   .item-photo {
     width: 300px; height: 300px; object-fit: cover;
@@ -213,7 +215,7 @@ export function exportPDF(
 
   @media print {
     body { font-size: 10px; }
-    .item-photo { width: 150px; height: 150px; }
+    .item-photo { width: 100px; height: 100px; }
     .section-header { margin-top: 4px; }
   }
 </style>
