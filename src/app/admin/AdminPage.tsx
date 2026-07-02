@@ -180,7 +180,7 @@ export default function AdminPage() {
         </div>
       </div>
 
-      <div className="page">
+      <div className="page" style={{ overflowY: 'auto', height: 'calc(100vh - 56px)' }}>
 
         {/* Robot Selector */}
         <div className="admin-robot-selector">

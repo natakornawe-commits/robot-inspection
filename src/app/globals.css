@@ -37,6 +37,7 @@ html, body {
   overflow: hidden;
 }
 
+
 button, input, textarea, select { font: inherit; }
 
 body {
@@ -485,6 +486,57 @@ body {
     align-items: center;
     gap: 8px;
     flex: 1;
+  }
+  /* robot selector ใน admin — wrap ได้ */
+  .admin-robot-selector {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .admin-robot-selector .robot-tab {
+    flex: 1;
+    min-width: calc(50% - 6px);
+    font-size: 11px;
+    padding: 5px 4px;
+  }
+
+  /* section head — stack แนวตั้ง */
+  .admin-section-head {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .admin-section-head .admin-input {
+    width: 100% !important;
+    flex: unset !important;
+  }
+  .admin-section-head .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* subsection head */
+  .admin-subsection-head {
+    flex-wrap: wrap;
+  }
+  .admin-subsection-head .admin-input {
+    width: 100% !important;
+    flex: unset !important;
+  }
+
+  /* item row — stack แนวตั้ง */
+  .admin-item {
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 8px 0;
+  }
+  .admin-item .admin-input {
+    width: 100% !important;
+    flex: unset !important;
+  }
+  .admin-item .admin-checkbox {
+    width: 100%;
+  }
+  .admin-item .btn-icon {
+    margin-left: auto;
   }
 
    
