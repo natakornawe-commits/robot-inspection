@@ -133,7 +133,7 @@ export async function exportPDF(
   }
   .info-cell { display: flex; flex-direction: column; }
   .info-cell-label {
-    font-size: 9px; color: #64748b; text-transform: uppercase;
+    font-size: 9px; color: #000000; text-transform: uppercase;
     letter-spacing: .05em; font-weight: 600;
   }
   .info-cell-value { font-size: 12px; font-weight: 600; color: #1e293b; border-bottom: 1px solid #cbd5e1; padding-bottom: 2px; margin-top: 2px; }
