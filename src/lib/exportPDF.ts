@@ -87,7 +87,7 @@ export function exportPDF(
 <style>
   @page { size: A4; margin: 15mm 12mm; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Sarabun', 'TH Sarabun New', Arial, sans-serif; font-size: 11px; color: #1e293b; background: #fff; }
+  body { font-family: 'Sarabun', 'TH Sarabun New', Arial, sans-serif; font-size: 19px; color: #1e293b; background: #fff; }
 
   /* ── HEADER ── */
   .doc-header {
@@ -100,7 +100,7 @@ export function exportPDF(
     display: flex; justify-content: space-between; align-items: center;
   }
   .company-name { font-size: 16px; font-weight: 700; }
-  .report-title { font-size: 13px; opacity: 0.9; margin-top: 2px; }
+  .report-title { font-size: 16px; opacity: 0.9; margin-top: 2px; }
   .doc-header-logo {
     width: 60px; height: 60px; background: white;
     border-radius: 4px; display: flex; align-items: center;
@@ -214,7 +214,7 @@ export function exportPDF(
   }
 
   @media print {
-    body { font-size: 10px; }
+    body { font-size: 18px; }
     .item-photo { width: 100px; height: 100px; }
     .section-header { margin-top: 4px; }
   }
