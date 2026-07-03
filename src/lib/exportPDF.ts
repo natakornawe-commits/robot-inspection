@@ -185,6 +185,9 @@ export async function exportPDF(
   .item-label{ font-size: 11px; }
   .item-action{ width: 50px; text-align: center; color: #64748b; font-size: 11px; }
   .item-result{ width: 45px; text-align: center; font-weight: 700; font-size: 14px; }
+  .item-row {
+  page-break-inside: avoid;
+  } 
 
   .result-good { color: #16a34a; background: #f0fdf4; }
   .result-bad  { color: #dc2626; background: #fef2f2; }
@@ -235,8 +238,10 @@ export async function exportPDF(
   @media print {
     body { font-size: 18px; }
     .item-photo { width: 200px; height: 200px; }
+    .item-row { page-break-inside: avoid; }  
     .section-header { margin-top: 4px; }
   }
+  
 </style>
 </head>
 <body>
