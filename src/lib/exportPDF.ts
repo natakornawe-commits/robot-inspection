@@ -123,9 +123,11 @@ export async function exportPDF(
     color: #1e3a5f;
   }
   .doc-header-bottom {
-    padding: 8px 16px;
-    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 8px; background: #f8fafc;
+   border: 2px solid #1e3a5f; border-radius: 4px;
+   margin-bottom: 10px; overflow: hidden;
+   display: flex;
+   flex-direction: column; /* เพิ่มตรงนี้ */
+}
   }
   .info-cell { display: flex; flex-direction: column; }
   .info-cell-label {
