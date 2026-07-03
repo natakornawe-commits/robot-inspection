@@ -22,7 +22,8 @@ export async function exportPDF(
   sections?: any[]
 ) {
   // ✅ ดึง base64 ก่อนสร้าง HTML
-  const logoBase64 = await getBase64FromUrl('/Picture1.png');
+  const logoBase64 = await getBase64FromUrl('/Picture1.png ');
+  const logoBase646 = await getBase64FromUrl('/Picture2.png ');
   
   const secs = sections && sections.length > 0 ? sections : getSectionsStatic(robot);
 
@@ -249,7 +250,8 @@ export async function exportPDF(
          <div class="Location-name" style="color: #de006f;">503 Rama 2 Road, Samae Dam, Bang Khun Thian, Bangkok 10150, Thailand 10150</div>
          <div class="company-name" style="color: #b60000;">Tel: +66 (0)2 451 6799 Fax: +66 (0)2 451 6798</div>
       </div>
-      <div class="doc-header-logo"></div>
+      <div class="doc-header-logo">
+      <img src="${logoBase646}" alt="" style="width:100px;height:100px;object-fit:contain;"/>
     </div>
     <div class="doc-header-bottom">
       <div class="info-cell">

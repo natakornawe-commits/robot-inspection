@@ -9,6 +9,8 @@ import { makeItemKey } from '@/lib/utils';
 // ลบ const makeItemKey = ... ที่ define เองออก
 
 
+
+
 const DEFAULT_ITEM_STATE: ItemState = {
   result: null,
   value: '',
@@ -33,6 +35,7 @@ export function useInspection() {
       return raw ? JSON.parse(raw) : {};
     } catch { return {}; }
   });
+  
 
   const [info, setInfo] = useState<InspectionInfo>(() => {
     if (typeof window === 'undefined') return { date: getTodayDate(), robot: '', inspector: '', witness: '' };
