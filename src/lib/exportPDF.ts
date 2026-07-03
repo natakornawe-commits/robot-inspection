@@ -234,7 +234,7 @@ export async function exportPDF(
 
   @media print {
     body { font-size: 18px; }
-    .item-photo { width: 100px; height: 100px; }
+    .item-photo { width: 500px; height: 500px; }
     .section-header { margin-top: 4px; }
   }
 </style>
