@@ -116,10 +116,12 @@ export async function exportPDF(
   .company-name { font-size: 16px; font-weight: 700; }
   .Location-name { font-size: 14px; font-weight: 500; opacity: 0.8; margin-top: 2px; }
   .report-title { font-size: 16px; opacity: 0.9; margin-top: 2px; font-weight: 700; }
+  .ISO { font-size: 10px; font-weight: 500; }
   .doc-header-logo {
-    width: 60px; height: 60px; background: white;
-    border-radius: 4px; display: flex; align-items: center;
-    justify-content: center; font-size: 24px; font-weight: 900;
+    width: 60px; background: white;
+    border-radius: 4px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    font-size: 24px; font-weight: 900;
     color: #1e3a5f;
   }
   .doc-header-bottom {
@@ -254,7 +256,9 @@ export async function exportPDF(
       </div>
       <div class="doc-header-logo">
       <img src="${logoBase646}" alt="" style="width:100px;height:100px;object-fit:contain;"/>
+      <div class="ISO" style="color: #de006f;">อยู่ภายใต้การรับรอง ISO 9001:2015</div>
       </div>
+      
     </div>
     <div class="doc-header-bottom">
       <div class="info-cell">
