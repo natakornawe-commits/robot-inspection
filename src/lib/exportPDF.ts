@@ -123,11 +123,11 @@ export async function exportPDF(
     color: #1e3a5f;
   }
   .doc-header-bottom {
-   border: 2px solid #1e3a5f; border-radius: 4px;
-   margin-bottom: 10px; overflow: hidden;
-   display: flex;
-   flex-direction: column; /* เพิ่มตรงนี้ */
-}
+   padding: 8px 16px;
+   display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+   gap: 8px; background: #f8fafc;
+   
+  }
   }
   .info-cell { display: flex; flex-direction: column; }
   .info-cell-label {
@@ -244,8 +244,8 @@ export async function exportPDF(
     <div class="doc-header-top">
       <div class="doc-header-logo">
        <img src="${logoBase64}" alt="" style="width:100px;height:100px;object-fit:contain;"/>
-      </div>
-      <div>
+         </div>
+          <div>
         <div class="company-name" style="color: #2a2e5c;">บริษัท เอช เทค เทคโนโลยี จำกัด</div>
          <div class="Location-name" style="color: #de006f;">503 ถนนพระราม 2 แขวงแสมดำ เขตบางขุนเทียน กรุงเทพมหานคร 10150</div>
         <div class="report-title"style="color: #2a2e5c;">ACETEC Technology Co., Ltd.</div>
@@ -254,6 +254,7 @@ export async function exportPDF(
       </div>
       <div class="doc-header-logo">
       <img src="${logoBase646}" alt="" style="width:100px;height:100px;object-fit:contain;"/>
+      </div>
     </div>
     <div class="doc-header-bottom">
       <div class="info-cell">
