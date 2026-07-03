@@ -23,6 +23,7 @@ export async function exportPDF(
 ) {
   // ✅ ดึง base64 ก่อนสร้าง HTML
   const logoBase64 = await getBase64FromUrl('/Picture1.png');
+  
   const secs = sections && sections.length > 0 ? sections : getSectionsStatic(robot);
 
   // สร้าง rows แบบละเอียด พร้อมรูปภาพ
@@ -107,13 +108,13 @@ export async function exportPDF(
     margin-bottom: 10px; overflow: hidden;
   }
   .doc-header-top {
-    background: #e5eaf0; color: white;
+    background: #ffffff; color: white;
     padding: 10px 16px;
     display: flex; justify-content: space-between; align-items: center;
   }
   .company-name { font-size: 16px; font-weight: 700; }
   .Location-name { font-size: 14px; font-weight: 500; opacity: 0.8; margin-top: 2px; }
-  .report-title { font-size: 16px; opacity: 0.9; margin-top: 2px; }
+  .report-title { font-size: 16px; opacity: 0.9; margin-top: 2px; font-weight: 700; }
   .doc-header-logo {
     width: 60px; height: 60px; background: white;
     border-radius: 4px; display: flex; align-items: center;
@@ -239,14 +240,16 @@ export async function exportPDF(
   <div class="doc-header">
     <div class="doc-header-top">
       <div class="doc-header-logo">
-       <img src="${logoBase64}" alt="" style="width:100%;height:100%;object-fit:contain;"/>
+       <img src="${logoBase64}" alt="" style="width:100px;height:100px;object-fit:contain;"/>
       </div>
       <div>
-        <div class="company-name" style="color: #120e0e;">บริษัท เอช เทค เทคโนโลยี จำกัด</div>
-         <div class="Location-name" style="color: #120e0e;">503 ถนนพระราม 2 แขวงแสมดำ เขตบางขุนเทียน กรุงเทพมหานคร 10150</div>
-        <div class="report-title"style="color: #120e0e;">ACETEC Technology Co., Ltd.— ${robot.toUpperCase()} Robot</div>
+        <div class="company-name" style="color: #2a2e5c;">บริษัท เอช เทค เทคโนโลยี จำกัด</div>
+         <div class="Location-name" style="color: #de006f;">503 ถนนพระราม 2 แขวงแสมดำ เขตบางขุนเทียน กรุงเทพมหานคร 10150</div>
+        <div class="report-title"style="color: #2a2e5c;">ACETEC Technology Co., Ltd.</div>
+         <div class="Location-name" style="color: #de006f;">503 Rama 2 Road, Samae Dam, Bang Khun Thian, Bangkok 10150, Thailand 10150</div>
+         <div class="company-name" style="color: #b60000;">Tel: +66 (0)2 451 6799 Fax: +66 (0)2 451 6798</div>
       </div>
-      <div class="doc-header-logo">AIS</div>
+      <div class="doc-header-logo"></div>
     </div>
     <div class="doc-header-bottom">
       <div class="info-cell">
