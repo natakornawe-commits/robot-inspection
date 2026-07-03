@@ -153,20 +153,20 @@ export async function exportPDF(
   .sum-cell.gray   { background: #f8fafc; border-color: #e2e8f0; }
   .sum-cell.blue   { background: #eff6ff; border-color: #93c5fd; }
   .sum-val  { font-size: 20px; font-weight: 700; }
-  .sum-label{ font-size: 9px; color: #64748b; margin-top: 2px; }
+  .sum-label{ font-size: 9px; color: #0e1013; margin-top: 2px; }
 
   /* ── TABLE ── */
   table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
   th {
     background: #1e3a5f; color: white;
     padding: 7px 8px; font-size: 10px; font-weight: 600;
-    text-align: left; border: 1px solid #1e3a5f;
+    text-align: left; border: 1px solid #233e61;
   }
   td { padding: 6px 8px; border: 1px solid #e2e8f0; vertical-align: top; }
 
   .section-header-row td { padding: 0; border: none; }
   .section-header {
-    background: #1e3a5f; color: white;
+    background: #eceff1; color: #1e3a5f;
     padding: 7px 10px; font-size: 12px; font-weight: 700;
     display: flex; align-items: center; gap: 8px;
     margin-top: 8px;
