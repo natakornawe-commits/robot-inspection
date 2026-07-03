@@ -186,7 +186,8 @@ export async function exportPDF(
   .item-action{ width: 50px; text-align: center; color: #64748b; font-size: 11px; }
   .item-result{ width: 45px; text-align: center; font-weight: 700; font-size: 14px; }
   .item-row {
-  page-break-inside: avoid;
+   page-break-after: auto;
+   page-break-inside: avoid;
   } 
 
   .result-good { color: #16a34a; background: #f0fdf4; }
