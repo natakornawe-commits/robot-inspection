@@ -209,7 +209,7 @@ export async function exportPDF(
 
   }
   .item-photo {
-    width: 500px; height: 500px; object-fit: cover;
+    width: 300px; height: 300px; object-fit: cover;
     border-radius: 4px; border: 1px solid #e2e8f0;
   }
 
@@ -234,7 +234,7 @@ export async function exportPDF(
 
   @media print {
     body { font-size: 18px; }
-    .item-photo { width: 500px; height: 500px; }
+    .item-photo { width: 200px; height: 200px; }
     .section-header { margin-top: 4px; }
   }
 </style>
