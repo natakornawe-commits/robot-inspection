@@ -364,15 +364,24 @@ export async function exportPDF(
 
 </body></html>`;
 
-  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const win = window.open(url, '_blank');
-  if (!win) {
-    alert('กรุณาอนุญาต Popup ในบราวเซอร์ก่อนครับ');
-    return;
-  }
+ const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+const url = URL.createObjectURL(blob);
+
+// ลอง open popup ก่อน ถ้าไม่ได้ให้ download แทน
+const win = window.open(url, '_blank');
+if (!win || win.closed || typeof win.closed === 'undefined') {
+  // Popup ถูก block → download ไฟล์แทน
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `inspection-report-${Date.now()}.html`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+} else {
   win.onload = () => {
     win.print();
     URL.revokeObjectURL(url);
   };
+}
 }
