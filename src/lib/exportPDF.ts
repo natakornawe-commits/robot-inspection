@@ -130,7 +130,7 @@ export async function exportPDF(
    gap: 8px; background: #f8fafc;
    
   }
-  }
+  
   .info-cell { display: flex; flex-direction: column; }
   .info-cell-label {
     font-size: 9px; color: #000000; text-transform: uppercase;
