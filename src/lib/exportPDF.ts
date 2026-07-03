@@ -209,7 +209,7 @@ export async function exportPDF(
 
   }
   .item-photo {
-    width: 300px; height: 300px; object-fit: cover;
+    width: 500px; height: 500px; object-fit: cover;
     border-radius: 4px; border: 1px solid #e2e8f0;
   }
 
