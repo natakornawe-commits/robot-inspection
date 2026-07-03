@@ -113,9 +113,9 @@ export async function exportPDF(
     padding: 10px 16px;
     display: flex; justify-content: space-between; align-items: center;
   }
-  .company-name { font-size: 16px; font-weight: 700; }
-  .Location-name { font-size: 14px; font-weight: 500; opacity: 0.8; margin-top: 2px; }
-  .report-title { font-size: 16px; opacity: 0.9; margin-top: 2px; font-weight: 700; }
+  .company-name { font-size: 14px; font-weight: 700; }
+  .Location-name { font-size: 13px; font-weight: 500; opacity: 0.8; margin-top: 2px; }
+  .report-title { font-size: 14px; opacity: 0.9; margin-top: 2px; font-weight: 700; }
   .ISO { font-size: 10px; font-weight: 500; }
   .doc-header-logo {
     width: 60px; background: white;
