@@ -4,13 +4,25 @@ import { getSectionsStatic } from '@/lib/utils';
 function stripEmoji(str: string): string {
   return str.replace(/[\u{1F000}-\u{1FFFF}|\u{2600}-\u{26FF}|\u{2700}-\u{27BF}|\u{FE00}-\u{FE0F}|\u{1F900}-\u{1F9FF}|\u{1FA00}-\u{1FA6F}|\u{1FA70}-\u{1FAFF}|\u2600-\u26FF|\u2700-\u27BF]/gu, '').trim();
 }
-export function exportPDF(
+// ✅ เพิ่มตรงนี้ — ก่อน exportPDF
+async function getBase64FromUrl(url: string): Promise<string> {
+  const res = await fetch(window.location.origin + url);
+  const blob = await res.blob();
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.readAsDataURL(blob);
+  });
+}
+export async function exportPDF(
   robot: RobotType,
   state: InspectionState,
   info: InspectionInfo,
   stats: { done: number; bad: number; na: number; total: number },
   sections?: any[]
 ) {
+  // ✅ ดึง base64 ก่อนสร้าง HTML
+  const logoBase64 = await getBase64FromUrl('/Picture1.png');
   const secs = sections && sections.length > 0 ? sections : getSectionsStatic(robot);
 
   // สร้าง rows แบบละเอียด พร้อมรูปภาพ
@@ -95,11 +107,12 @@ export function exportPDF(
     margin-bottom: 10px; overflow: hidden;
   }
   .doc-header-top {
-    background: #1e3a5f; color: white;
+    background: #e5eaf0; color: white;
     padding: 10px 16px;
     display: flex; justify-content: space-between; align-items: center;
   }
   .company-name { font-size: 16px; font-weight: 700; }
+  .Location-name { font-size: 14px; font-weight: 500; opacity: 0.8; margin-top: 2px; }
   .report-title { font-size: 16px; opacity: 0.9; margin-top: 2px; }
   .doc-header-logo {
     width: 60px; height: 60px; background: white;
@@ -225,11 +238,15 @@ export function exportPDF(
   <!-- HEADER -->
   <div class="doc-header">
     <div class="doc-header-top">
-      <div>
-        <div class="company-name">ACETEC TECHNOLOGY CO., LTD.</div>
-        <div class="report-title">General Inspection and Maintenance Report — ${robot.toUpperCase()} Robot</div>
+      <div class="doc-header-logo">
+       <img src="${logoBase64}" alt="" style="width:100%;height:100%;object-fit:contain;"/>
       </div>
-      <div class="doc-header-logo">AI</div>
+      <div>
+        <div class="company-name" style="color: #120e0e;">บริษัท เอช เทค เทคโนโลยี จำกัด</div>
+         <div class="Location-name" style="color: #120e0e;">503 ถนนพระราม 2 แขวงแสมดำ เขตบางขุนเทียน กรุงเทพมหานคร 10150</div>
+        <div class="report-title"style="color: #120e0e;">ACETEC Technology Co., Ltd.— ${robot.toUpperCase()} Robot</div>
+      </div>
+      <div class="doc-header-logo">AIS</div>
     </div>
     <div class="doc-header-bottom">
       <div class="info-cell">
