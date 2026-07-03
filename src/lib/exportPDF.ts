@@ -213,7 +213,7 @@ export async function exportPDF(
 
   }
   .item-photo {
-    width: 300px; height: 300px; object-fit: cover;
+    width: 150px; height: 150px; object-fit: cover;
     border-radius: 4px; border: 1px solid #e2e8f0;
   }
 
@@ -238,7 +238,7 @@ export async function exportPDF(
 
   @media print {
     body { font-size: 18px; }
-    .item-photo { width: 200px; height: 200px; }
+    .item-photo { width: 150px; height: 150px; }
     .item-row { page-break-inside: avoid; }  
     .section-header { margin-top: 4px; }
   }
